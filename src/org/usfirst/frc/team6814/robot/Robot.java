@@ -14,18 +14,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team6814.robot.commands.Drive;
+import org.usfirst.frc.team6814.robot.commands.AutoDrive;
+import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
 
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
  * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.properties file in the
+ * creating this project, you must also update the build.properties h file in the
  * project.
  */
 public class Robot extends TimedRobot {
-	public static final ExampleSubsystem kExampleSubsystem
-			= new ExampleSubsystem();
+	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static OI m_oi;
+	public Drive drive;
+	public AutoDrive autoDrive;
+	public GrabbyGrabbyCtrl grabbygrabby;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -36,7 +41,11 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		RobotMap.timer.start();
 		m_oi = new OI();
+		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.leftController);
+		autoDrive = new AutoDrive();
+		drive = new Drive(m_oi.leftController, m_oi.rightController);
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -83,6 +92,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
+		autoDrive.start();
 	}
 
 	/**
@@ -102,8 +112,11 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		//Scheduler.getInstance().add(drive);
+		drive.start();
+		grabbygrabby.start();
 	}
-	
+
 	/**
 	 * This function is called periodically during operator control.
 	 */
@@ -113,7 +126,7 @@ public class Robot extends TimedRobot {
 	}
 
 	/**
-	 * This function is called periodically during test period.
+	 * This function is called periodically during test mode.
 	 */
 	@Override
 	public void testPeriodic() {
