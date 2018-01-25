@@ -17,11 +17,44 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public Joystick leftController = new Joystick(0);
-	public Joystick rightController = new Joystick(1);
+	public static Joystick leftController = new Joystick(0);
+	public static Joystick rightController = new Joystick(1);
 	public Button GrabbyGrabbyButton = new JoystickButton(rightController, 1);
 	
-	public OI() {
+	
+		
+		private static boolean running = false;
+		
+	   // public static Joystick joy1 = new Joystick(0);
+		
+	    public static void makeTrue() {
+	    	
+	    	running = true;
+	    	
+	    }
+	    
+	    public static void main(String[] args)
+	    {
+	    	 
+	    	 JoystickButton upButton = new JoystickButton(rightController, 4);
+	         JoystickButton downButton = new JoystickButton(rightController, 3);
+	         
+	         makeTrue();
+	         
+	         while(running) {
+	        	 
+	        	 upButton.whileHeld(new RaiseElevator());
+	      	     downButton.whileHeld(new LowerElevator());  
+	             
+	             System.out.println("Buttons created"); 
+	        	 
+	         }
+	       
+	    }
+		
+		
+		
+		
 		//button1.whenPressed(new Drive());
 		//controller.getRawAxis(5);
 	}
