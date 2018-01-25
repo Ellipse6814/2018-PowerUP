@@ -78,36 +78,15 @@ public class Robot extends TimedRobot {
 	 * to the switch structure below with additional strings & commands.
 	 */
 	
-	public void getArcadeConfig() {
-		String arcadeConfig = DriverStation.getInstance().getGameSpecificMessage();
-		char usableArray[] = arcadeConfig.toCharArray();
-
-		// Autonomous code if both switch and scale on the left
-		if ((usableArray[0] == 'L' && usableArray[1] == 'L') || (usableArray[0] == 'l' && usableArray[1] == 'l')) {
-
-		}
-
-		// Autonomous code if both switch and scale are on the right
-		else if ((usableArray[0] == 'R' && usableArray[1] == 'R') || (usableArray[0] == 'r' && usableArray[1] == 'r')) {
-
-		}
-
-		// Autonomous code if the home switch is on the left and the scale is on the
-		// right
-		else if ((usableArray[0] == 'L' && usableArray[1] == 'R') || (usableArray[0] == 'l' && usableArray[1] == 'r')) {
-
-		}
-
-		// Autonomous code if the home switch is on the right and the scale is on the
-		// left
-		else if ((usableArray[0] == 'R' && usableArray[1] == 'L') || (usableArray[0] == 'r' && usableArray[1] == 'l')) {
-
-		}
-
-	}
+	
 	
 	@Override
 	public void autonomousInit() {
+		
+		getArcadeConfig();
+		
+		
+		
 		//m_autonomousCommand = m_chooser.getSelected();
 
 		/*
@@ -159,5 +138,38 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+	}
+	
+	
+	//DECLARE CUSTOM METHODS HERE
+	
+	
+	
+	public void getArcadeConfig() {
+		String arcadeConfig = DriverStation.getInstance().getGameSpecificMessage();
+		char usableArray[] = arcadeConfig.toCharArray();
+
+		// Autonomous code if both switch and scale on the left
+		if ((usableArray[0] == 'L' && usableArray[1] == 'L') || (usableArray[0] == 'l' && usableArray[1] == 'l')) {
+
+		}
+
+		// Autonomous code if both switch and scale are on the right
+		else if ((usableArray[0] == 'R' && usableArray[1] == 'R') || (usableArray[0] == 'r' && usableArray[1] == 'r')) {
+
+		}
+
+		// Autonomous code if the home switch is on the left and the scale is on the
+		// right
+		else if ((usableArray[0] == 'L' && usableArray[1] == 'R') || (usableArray[0] == 'l' && usableArray[1] == 'r')) {
+
+		}
+
+		// Autonomous code if the home switch is on the right and the scale is on the
+		// left
+		else if ((usableArray[0] == 'R' && usableArray[1] == 'L') || (usableArray[0] == 'r' && usableArray[1] == 'l')) {
+
+		}
+
 	}
 }
