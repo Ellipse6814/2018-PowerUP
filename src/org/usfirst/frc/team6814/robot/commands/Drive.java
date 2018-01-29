@@ -43,9 +43,9 @@ public class Drive extends Command {
 			double averagePower = (leftStick + rightStick) / 2;
 			leftPower = averagePower;
 			rightPower = averagePower;
-			if (ahrs.getAngle()>350 && ahrs.getAngle()<358) {
+			if (ahrs.getAngle()>180 && ahrs.getAngle()<358) {
 				rightPower -= 0.1;
-			}else if (ahrs.getAngle()<10 && ahrs.getAngle()>2) {
+			}else if (ahrs.getAngle()<180 && ahrs.getAngle()>2) {
 				leftPower -= 0.1;
 			}
 		}else {
