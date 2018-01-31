@@ -5,7 +5,7 @@ import org.usfirst.frc.team6814.robot.RobotMap;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Drive extends Command {
@@ -20,7 +20,7 @@ public class Drive extends Command {
 	public Drive(Joystick leftController, Joystick rightController) {
 		this.leftController = leftController;
 		this.rightController = rightController;
-		ahrs = new AHRS(SPI.Port.kMXP);
+		ahrs = new AHRS(I2C.Port.kMXP);
 	}
 
 	@Override
@@ -34,8 +34,14 @@ public class Drive extends Command {
 		double rightStick = rightController.getY();
 		double leftPower = 0;
 		double rightPower = 0;
-
-		if (Math.abs(rightStick - leftStick) < 0.25) {
+		System.out.println(ahrs.getAngle());
+//		System.out.println(ahrs.getQuaternionZ());
+//		System.out.println(ahrs.getRawAccelZ());
+//		System.out.println(ahrs.getRawGyroZ());
+//		System.out.println(ahrs.getVelocityZ());
+//		System.out.println(ahrs.getRawMagZ());
+//		System.out.println(ahrs.get);
+		if (Math.abs(rightStick - leftStick) < 0.4) {
 			if (!lastStatus) {
 				lastStatus = true;
 				ahrs.reset();
@@ -49,13 +55,12 @@ public class Drive extends Command {
 				leftPower -= 0.1;
 			}
 		}else {
-				lastStatus = false;
+			lastStatus = false;
+			leftPower = leftStick;
+			rightPower = rightStick;
 		}
-//		else {
-//			leftPower = leftStick * .6;
-//			rightPower = rightStick * .6;
-//		}
-		if (leftController.getRawButton(1)) {
+
+		if (rightController.getRawButton(1)) {
 			leftPower *= 0.6;
 			rightPower *= 0.6;
 		}
