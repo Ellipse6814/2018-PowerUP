@@ -22,8 +22,8 @@ import edu.wpi.first.wpilibj.Timer;
 public class RobotMap {
 	public static Timer timer = new Timer();
 	public static Spark leftFrontMotor = new Spark(0);
-	public static Spark rightFrontMotor = new Spark(1);
-	public static Spark leftBackMotor = new Spark(2);
+	public static Spark rightFrontMotor = new Spark(2);
+	public static Spark leftBackMotor = new Spark(1);
 	public static Spark rightBackMotor = new Spark(3);
 	public static DifferentialDrive driveFrontBot = new DifferentialDrive(leftFrontMotor,rightFrontMotor);
 	public static DifferentialDrive driveBackBot = new DifferentialDrive(leftBackMotor,rightBackMotor);
