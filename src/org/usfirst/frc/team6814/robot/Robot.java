@@ -7,25 +7,32 @@
 
 package org.usfirst.frc.team6814.robot;
 
+//FRC imports.
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+//Our imports.
 import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team6814.robot.commands.Drive;
+import org.usfirst.frc.team6814.robot.commands.AutoDrive;
+import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
 
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
  * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.properties filk in the
- * project.
  */
 public class Robot extends TimedRobot {
-	public static final ExampleSubsystem kExampleSubsystem
-			= new ExampleSubsystem();
+	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static OI m_oi;
+	public Drive drive;
+	public AutoDrive autoDrive;
+	public GrabbyGrabbyCtrl grabbygrabby;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -36,7 +43,11 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		RobotMap.timer.start();
 		m_oi = new OI();
+		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.leftController);
+		autoDrive = new AutoDrive();
+		drive = new Drive(m_oi.leftController, m_oi.rightController);
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -68,9 +79,38 @@ public class Robot extends TimedRobot {
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
+	
+	public void getArcadeConfig() {
+		String arcadeConfig = DriverStation.getInstance().getGameSpecificMessage();
+		char usableArray[] = arcadeConfig.toCharArray();
+
+		// Autonomous code if both switch and scale on the left
+		if ((usableArray[0] == 'L' && usableArray[1] == 'L') || (usableArray[0] == 'l' && usableArray[1] == 'l')) {
+
+		}
+
+		// Autonomous code if both switch and scale are on the right
+		else if ((usableArray[0] == 'R' && usableArray[1] == 'R') || (usableArray[0] == 'r' && usableArray[1] == 'r')) {
+
+		}
+
+		// Autonomous code if the home switch is on the left and the scale is on the
+		// right
+		else if ((usableArray[0] == 'L' && usableArray[1] == 'R') || (usableArray[0] == 'l' && usableArray[1] == 'r')) {
+
+		}
+
+		// Autonomous code if the home switch is on the right and the scale is on the
+		// left
+		else if ((usableArray[0] == 'R' && usableArray[1] == 'L') || (usableArray[0] == 'r' && usableArray[1] == 'l')) {
+
+		}
+
+	}
+	
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
+		//m_autonomousCommand = m_chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -83,6 +123,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
+		autoDrive.start();
 	}
 
 	/**
@@ -102,8 +143,11 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		//Scheduler.getInstance().add(drive);
+		drive.start();
+		grabbygrabby.start();
 	}
-	
+
 	/**
 	 * This function is called periodically during operator control.
 	 */
@@ -113,7 +157,7 @@ public class Robot extends TimedRobot {
 	}
 
 	/**
-	 * This function is called periodically during test period.
+	 * This function is called periodically during test mode.
 	 */
 	@Override
 	public void testPeriodic() {

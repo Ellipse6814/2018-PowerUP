@@ -7,6 +7,14 @@
 
 package org.usfirst.frc.team6814.robot;
 
+//FRC imports.
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Encoder;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -14,6 +22,16 @@ package org.usfirst.frc.team6814.robot;
  * floating around.
  */
 public class RobotMap {
+	public static Timer timer = new Timer();
+	public static Spark leftFrontMotor = new Spark(0);
+	public static Spark rightFrontMotor = new Spark(2);
+	public static Spark leftBackMotor = new Spark(1);
+	public static Spark rightBackMotor = new Spark(3);
+	public static DifferentialDrive driveFrontBot = new DifferentialDrive(leftFrontMotor,rightFrontMotor);
+	public static DifferentialDrive driveBackBot = new DifferentialDrive(leftBackMotor,rightBackMotor);
+	public static Compressor compressor = new Compressor(0);
+	public static DoubleSolenoid solenoid = new DoubleSolenoid(0,1);
+	public static Encoder encoder = new Encode(0,1, false);
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;
