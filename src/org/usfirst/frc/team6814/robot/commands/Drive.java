@@ -27,7 +27,7 @@ public class Drive extends Command {
 
 	@Override
 	protected void execute() {
-//		ellipseDrive(leftController.getRawAxis(1),leftController.getRawAxis(5));
+		ellipseDrive(leftController.getRawAxis(1),leftController.getRawAxis(5));
 		
 	}
 	
