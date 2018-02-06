@@ -26,7 +26,7 @@ public class EncoderRight extends Command{
 	protected void initialize() {
 		
 		// sets the ending distance to the distance to be driven subtracted from the distance traveled since last reset. 
-		stopDist = RobotMap.encoder.getDistance() - driveDist;
+		stopDist = RobotMap.rightEnc.getDistance() - driveDist;
 		
 	}
 	
@@ -42,7 +42,7 @@ public class EncoderRight extends Command{
 	protected boolean isFinished() {
 		
 		//this needs to return either true or false, using the distanceChecking method and comparing it to the stopDist
-		return (RobotMap.encoder.getDistance() <= stopDist);
+		return (RobotMap.rightEnc.getDistance() <= stopDist);
 	}
 
 	//this function is supposed to stop the DifferentialDrive

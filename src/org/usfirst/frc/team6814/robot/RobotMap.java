@@ -31,16 +31,28 @@ public class RobotMap {
 	public static DifferentialDrive driveBackBot = new DifferentialDrive(leftBackMotor,rightBackMotor);
 	public static Compressor compressor = new Compressor(0);
 	public static DoubleSolenoid solenoid = new DoubleSolenoid(0,1);
-	public static Encoder encoder;
+	public static Encoder leftEnc;
+	public static Encoder rightEnc;
 	
 	public static void init() {
 		  
 // 0, 1 are ports for digital display. false tells encoder not to invert. k4x is a more accurate because it counts 4 edges on 2 channels
-		  encoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+		  rightEnc = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		// a pulse is the light that gets cut of when the device rotates. this sets the travel distance for every pulse.
-	      encoder.setDistancePerPulse(1.0); 
+	      rightEnc.setDistancePerPulse(1.0); 
 	      // sets the distance on the encoder back to 0.
-	      encoder.reset();
+	      rightEnc.reset();
+		
+	      leftEnc = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
+	      leftEnc.setDistancePerPulse(1.0);
+	      leftEnc.reset();
+	      
+	}
+	
+	public static void resetEnc() {
+		
+		RobotMap.leftEnc.reset();
+		RobotMap.rightEnc.reset();
 		
 	}
 	
