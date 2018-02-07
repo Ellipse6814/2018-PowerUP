@@ -128,8 +128,8 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
-//		autoDrive.start();
-		turn90.start();
+		autoDrive.start();
+//		turn90.start();
 		
 	}
 
