@@ -6,17 +6,22 @@
 /*----------------------------------------------------------------------------*/
 
 package org.usfirst.frc.team6814.robot;
+import org.usfirst.frc.team6814.robot.commands.AutoDrive;
+import org.usfirst.frc.team6814.robot.commands.Drive;
+import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
+import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
+import org.usfirst.frc.team6814.robot.commands.Turn90;
+import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
+
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
-import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
-import org.usfirst.frc.team6814.robot.commands.Drive;
-import org.usfirst.frc.team6814.robot.commands.AutoDrive;
-import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,6 +35,7 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public Drive drive;
 	public AutoDrive autoDrive;
+	public Turn90 turn90;
 	public GrabbyGrabbyCtrl grabbygrabby;
 
 	Command m_autonomousCommand;
@@ -42,10 +48,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.timer.start();
+		RobotMap.ahrs = new AHRS(SPI.Port.kMXP); 
 		m_oi = new OI();
 		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.leftController);
 		autoDrive = new AutoDrive();
-		drive = new Drive(m_oi.leftController, m_oi.rightController);
+		drive = new Drive(m_oi.leftController, m_oi.rightController, RobotMap.ahrs);
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -121,7 +128,9 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
-		autoDrive.start();
+//		autoDrive.start();
+		turn90.start();
+		
 	}
 
 	/**
