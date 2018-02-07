@@ -8,9 +8,10 @@
 package org.usfirst.frc.team6814.robot;
 
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Timer;
@@ -23,14 +24,31 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class RobotMap {
 	public static Timer timer = new Timer();
+	//left motors
 	public static Spark leftFrontMotor = new Spark(0);
-	public static Spark rightFrontMotor = new Spark(1);
-	public static Spark leftBackMotor = new Spark(2);
+	public static Spark leftBackMotor = new Spark(1);
+	//right motors
+	public static Spark rightFrontMotor = new Spark(2);
 	public static Spark rightBackMotor = new Spark(3);
+	//setup left motor group
+	public static SpeedControllerGroup leftSide = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
+	//setup right motor group
+	public static SpeedControllerGroup rightSide = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
+	//I'll leave these in here for now but I recommend not using them
 	public static DifferentialDrive driveFrontBot = new DifferentialDrive(leftFrontMotor,rightFrontMotor);
 	public static DifferentialDrive driveBackBot = new DifferentialDrive(leftBackMotor,rightBackMotor);
+	//Setup differential drive
+	public static DifferentialDrive driveBot = new DifferentialDrive(leftSide,rightSide);
+	//setup compressor
 	public static Compressor compressor = new Compressor(0);
+	//setup DoubleSolenoid
 	public static DoubleSolenoid solenoid = new DoubleSolenoid(0,1);
+	//left Gyros
+	public static AnalogGyro leftGyro1 = new AnalogGyro(0);
+	public static AnalogGyro leftGyro2 = new AnalogGyro(1);
+	//right Gyros
+	public static AnalogGyro rightGyro1 = new AnalogGyro(2);
+	public static AnalogGyro rightGyro2 = new AnalogGyro(3);
 	public static Encoder leftEnc;
 	public static Encoder rightEnc;
 	
