@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //Our imports.
 import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
-import org.usfirst.frc.team6814.robot.commands.Drive;
+import org.usfirst.frc.team6814.robot.commands.Drive2;
 import org.usfirst.frc.team6814.robot.commands.AutoDrive;
 import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
 
@@ -30,7 +30,7 @@ import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
 public class Robot extends TimedRobot {
 	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static OI m_oi;
-	public Drive drive;
+	public Drive2 drive;
 	public AutoDrive autoDrive;
 	public GrabbyGrabbyCtrl grabbygrabby;
 
@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.leftController);
 		autoDrive = new AutoDrive();
-		drive = new Drive(m_oi.leftController, m_oi.rightController);
+		drive = new Drive2(m_oi.leftController, m_oi.rightController);
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
