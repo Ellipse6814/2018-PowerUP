@@ -3,7 +3,6 @@ package org.usfirst.frc.team6814.robot.commands;
 //FRC imports
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 //Our imports
 import org.usfirst.frc.team6814.robot.RobotMap;
 
@@ -11,7 +10,6 @@ public class Drive2 extends Command{
 	private Joystick leftStick;
 	//use rightStick lower trigger to control the pneumatics system I think you can get it with rightStick.getButton(0);
 	private Joystick rightStick;
-	private int rightTrigger = 0;
 	public Drive2(Joystick leftStick, Joystick rightStick) {
 		this.leftStick = leftStick;
 		this.rightStick = rightStick;
