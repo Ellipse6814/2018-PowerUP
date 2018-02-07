@@ -33,7 +33,7 @@ public class EncoderBackward extends Command{
 	// this function starts the DifferentialDrive
 	protected void execute() {
 		
-		RobotMap.driveFrontBot.tankDrive(leftSpeed, rightSpeed);
+		RobotMap.driveBot.tankDrive(leftSpeed, rightSpeed);
 		
 	}
 	
@@ -48,7 +48,7 @@ public class EncoderBackward extends Command{
 	//this function is supposed to stop the DifferentialDrive
 	protected void end() {
 		
-		RobotMap.driveFrontBot.stopMotor();
+		RobotMap.driveBot.stopMotor();
 		
 	}
 	
