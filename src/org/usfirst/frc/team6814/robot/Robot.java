@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team6814.robot.commands.Drive;
+import org.usfirst.frc.team6814.robot.commands.EncoderForward;
 import org.usfirst.frc.team6814.robot.commands.AutoDrive;
 import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
 
@@ -59,6 +60,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 
+		// sets encoder distance to 0.
+		RobotMap.resetEnc();
+		
 	}
 
 	@Override
@@ -84,7 +88,7 @@ public class Robot extends TimedRobot {
 
 		// Autonomous code if both switch and scale on the left
 		if ((usableArray[0] == 'L' && usableArray[1] == 'L') || (usableArray[0] == 'l' && usableArray[1] == 'l')) {
-
+			// ex. for the encoder: EncoderForward encFor = new EncoderForward(-1, 6, 2);
 		}
 
 		// Autonomous code if both switch and scale are on the right
@@ -118,6 +122,11 @@ public class Robot extends TimedRobot {
 		 */
 
 		// schedule the autonomous command (example)
+		
+		// sets encoder distance to 0.
+		
+		RobotMap.resetEnc();
+		
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
