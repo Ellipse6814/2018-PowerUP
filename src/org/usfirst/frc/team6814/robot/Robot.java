@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
+import org.usfirst.frc.team6814.robot.subsystems.DriveFunctions;
 import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team6814.robot.commands.Drive;
 import org.usfirst.frc.team6814.robot.commands.AutoDrive;
@@ -82,29 +83,51 @@ public class Robot extends TimedRobot {
 	 */
 	
 	public void getArcadeConfig() {
-		String arcadeConfig = DriverStation.getInstance().getGameSpecificMessage();
+		String arcadeConfig = DriverStation.getInstance().getGameSpecificMessage(); 
 		char usableArray[] = arcadeConfig.toCharArray();
-
+		int arcadeLocation = DriverStation.getInstance().getLocation();
+		
+		// 1 left field |  2 mid | 3 right
 		// Autonomous code if both switch and scale on the left
-		if ((usableArray[0] == 'L' && usableArray[1] == 'L') || (usableArray[0] == 'l' && usableArray[1] == 'l')) {
-			// ex. for the encoder: EncoderForward encFor = new EncoderForward(-1, 6, 2);
-		}
+		if ((arcadeLocation == 1 &&  (usableArray[1] == 'L') ||  usableArray[1] == 'l')) {
+			
+			DriveFunctions.driveForward(1.0, 5, 9.96);
+			DriveFunctions.driveLeft(1.0, 2, 0); 
+			DriveFunctions.driveForward(1.0, 24, 11.64); 
+			
+		} 
 
 		// Autonomous code if both switch and scale are on the right
-		else if ((usableArray[0] == 'R' && usableArray[1] == 'R') || (usableArray[0] == 'r' && usableArray[1] == 'r')) {
+		else if ((arcadeLocation == 1 && (usableArray[1] == 'R') || usableArray[1] == 'r')) {
 
+			DriveFunctions.driveForward(1.0, 5, 9.96);
+			DriveFunctions.driveRight(1.0, 0, 0); //supposed to make it turn right in place
+			DriveFunctions.driveForward(1.0, 20, 0);
+			DriveFunctions.driveLeft(1.0, 0, 0); //supposed to make it turn left in place
+			DriveFunctions.driveForward(1.0, 22, 1.68);
+			
 		}
 
 		// Autonomous code if the home switch is on the left and the scale is on the
 		// right
-		else if ((usableArray[0] == 'L' && usableArray[1] == 'R') || (usableArray[0] == 'l' && usableArray[1] == 'r')) {
-
+		else if ((arcadeLocation == 3 && (usableArray[1] == 'R') || usableArray[1] == 'r')) {
+			
+			DriveFunctions.driveForward(1.0, 5, 9.96);
+			DriveFunctions.driveRight(1.0, 2, 0);
+			DriveFunctions.driveForward(1.0, 24, 11.64);
+			
 		}
 
 		// Autonomous code if the home switch is on the right and the scale is on the
 		// left
-		else if ((usableArray[0] == 'R' && usableArray[1] == 'L') || (usableArray[0] == 'r' && usableArray[1] == 'l')) {
+		else if ((arcadeLocation == 3 && (usableArray[1] == 'L') ||  usableArray[1] == 'l')) {
 
+			DriveFunctions.driveForward(1.0, 5, 9.96);
+			DriveFunctions.driveLeft(1.0, 0, 0); //supposed to make it turn left in place
+			DriveFunctions.driveForward(1.0, 20, 0);
+			DriveFunctions.driveRight(1.0, 0, 0); //supposed to make it turn right in place
+			DriveFunctions.driveForward(1.0, 22, 1.68); 
+			
 		}
 
 	}

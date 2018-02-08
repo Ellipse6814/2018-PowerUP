@@ -7,14 +7,14 @@ public class EncoderBackward extends Command{
 
 	int feetDist; // how many feet the bot should drive
 	int inchDist; // how many inches the bot should drive
-	int driveDist; // how far the bot should drive
+	double driveDist; // how far the bot should drive
 	double stopDist; // the distance at which it should stop
 	double botSpeed; // the speed the bot is going
 	double leftSpeed; // turning left speed
 	double rightSpeed; // turning right speed
 	
 	//Takes the speed; Takes the amount of feet and inches(ex. 12ft, 3in);
-	public EncoderBackward(double speed, int feet, int inches) {
+	public EncoderBackward(double speed, double feet, double inches) {
 				
 		driveDist = (inches + (12 * feet)); // adds the feet and inches by converting the feet to inches and adding
 		botSpeed = speed;

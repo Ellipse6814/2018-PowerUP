@@ -1,9 +1,5 @@
 package org.usfirst.frc.team6814.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.Encoder;
-import java.math.*;
-
-import org.usfirst.frc.team6814.robot.subsystems.*;
 
 public class AutoSequence extends Command{
 	double speed;
