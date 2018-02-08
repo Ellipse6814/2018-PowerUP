@@ -14,14 +14,27 @@ public class Drive extends Command {
 	private boolean ForceStraight = false;
 	private boolean straight = false;
 	private boolean forwards = true;
+	private int turn = -1;
+	private int lastturn = -1;
+	private boolean wantedTurn = false;
 	private int lastStatus = 0; // 1:forward straught; 2:backward straight; 3: turning whatever
 	private AHRS ahrs;
+	// private boolean LEDWonderAround = true;
+	// private PWM r;
+	// private PWM g;
+	// private PWM b;
 
 	public Drive(Joystick leftController, Joystick rightController, AHRS ahrs) {//
 		this.leftController = leftController;
 		this.rightController = rightController;
 		this.ahrs = ahrs;
 		resetGYRO();
+		// this.r = RobotMap.r;
+		// this.g = RobotMap.g;
+		// this.b = RobotMap.b;
+		// this.r.setRaw(255);
+		// this.g.setRaw(255);
+		// this.b.setRaw(255);
 	}
 
 	@Override
@@ -33,6 +46,10 @@ public class Drive extends Command {
 	protected void execute() {
 		double l = leftController.getRawAxis(1);
 		double r = leftController.getRawAxis(0);
+		
+		System.out.println(fAngle);
+		// System.out.println(this.leftController.getPOV());
+		turn90();
 		Forcestriaght(l, r);
 		if (!ForceStraight) {
 			checkStraight(l, r);
@@ -43,8 +60,21 @@ public class Drive extends Command {
 				arcadeDrive(l, r);
 			}
 			// System.out.println(ahrs.getAngle());
+		} else {
+			setLED(255, 0, 0);
 		}
 
+	}
+
+	private void turn90() {
+		lastturn = turn;
+		turn = this.leftController.getPOV();
+		if (!(turn == -1) && lastturn == -1) {
+			resetGYRO();
+			wantedTurn = true;
+			fAngle=-(turn-180);
+			System.out.println("Setting turn angle: "+fAngle);
+		}
 	}
 
 	private double getBigger(double a, double b) {
@@ -61,15 +91,15 @@ public class Drive extends Command {
 			resetGYRO();
 			straight = true;
 			ForceStraight = true;
-			System.out.println("F straight");
+			// System.out.println("F straight");
 		} else if (!(leftController.getRawButton(1)) && ForceStraight) { // ended going straight
 			straight = false;
 			ForceStraight = false;
-			System.out.println("F turning");
+			// System.out.println("F turning");
 		}
 		if (ForceStraight && !((lastStatus == 1 && (l >= 0 && r >= 0)) || (lastStatus == 2 && (l < 0 && r < 0)))) {
 			resetGYRO();
-			System.out.println("F change direction -> reset");
+			// System.out.println("F change direction -> reset");
 		}
 
 		ctrlMotors(l, l);
@@ -85,11 +115,20 @@ public class Drive extends Command {
 		if (Math.abs(l - r) <= straightAngle && l >= 0 && r >= 0 && !(lastStatus == 1)) { // start going straight
 			resetGYRO();
 			lastStatus = 1;
-			System.out.println("forwards");
+			straight = true;
+			setLED(0, 255, 0);
+			// System.out.println("forwards");
 		} else if (Math.abs(l - r) <= straightAngle && l < 0 && r < 0 && !(lastStatus == 2)) { // start going straight
 			resetGYRO();
 			lastStatus = 2;
-			System.out.println("backwards");
+			straight = true;
+			setLED(255, 255, 0);
+			// System.out.println("backwards");
+		} else {
+			lastStatus = 3;
+			straight = false;
+			setLED(0, 0, 255);
+			// System.out.println("turing");
 		}
 
 		// if (Math.abs(l - r) > straightAngle && straight == true) { // ended going
@@ -170,23 +209,58 @@ public class Drive extends Command {
 	}
 
 	private double GYROl(double l, double r) {
-		if (ahrs.getAngle() - fAngle > 1 && straight) {
-			return -0.1;
-		}
+		if (wantedTurn) {
+			if (fAngle>2) {
+				return 0.5;
+			}else if (fAngle<-2){
+				return -0.5;
+			}else {
+				wantedTurn = false;
+				System.out.println("Turn finished.");
+			}
+		} else if (straight)
+			if (ahrs.getAngle() - fAngle > 1) {
+				return -0.1;
+			}
 		return 0.0;
 	}
 
 	private double GYROr(double l, double r) {
-		if (ahrs.getAngle() - fAngle < -1 && straight) {
-			return 0.1;
-		}
+		if (wantedTurn) {
+			if (fAngle<-2) {
+				return 0.5;
+			}else if(fAngle>2) {
+				return -0.5;
+			}
+//			else {
+//				wantedTurn = false;
+//			}
+		} else if (straight)
+			if (ahrs.getAngle() - fAngle < -1) {
+				return -0.1;
+			}
 		return 0.0;
 	}
 
 	private void resetGYRO() {
 		fAngle = ahrs.getAngle();
-		System.out.println(fAngle);
+		// System.out.println(fAngle);
 	}
+
+	private void setLED(int r, int g, int b) {
+		// LEDWonderAround=false;
+		// this.r.setRaw(r);
+		// this.g.setRaw(g);
+		// this.b.setRaw(b);
+	}
+
+	// private void LEDwonderAround() {
+	// if (LEDWonderAround) {
+	// this.r.setRaw(r);
+	// this.g.setRaw(g);
+	// this.b.setRaw(b);
+	// }
+	// }
 
 	@Override
 	protected void end() {
