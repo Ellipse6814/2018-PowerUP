@@ -16,7 +16,7 @@ public class DriveFunctions {
 			//send em forward!
 			RobotMap.driveBot.tankDrive(driveSpeed, driveSpeed);
 		}
-		//each auton command assumes the encoder starts at zero
+		//each autonomous command assumes the encoder starts at zero
 		RobotMap.rightEnc.reset();
 	}
 	
