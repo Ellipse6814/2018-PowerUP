@@ -6,9 +6,8 @@ import org.usfirst.frc.team6814.robot.commands.EncoderRight;
 import org.usfirst.frc.team6814.robot.RobotMap;
 
 public class DriveFunctions {
-	public static void driveForward(double _speed, double feet, double inches) {
+	public static void driveForward(double feet, double inches) {
 		double distance = (feet * 12) + inches;
-		double speed = _speed;
 		//We're only going to run one of these functions at a time so using a while loop is not an issue
 		while(RobotMap.rightEnc.getDistance() < distance) {
 			//this function makes sure the robot's speed changes over time as opposed to sudden stops and starts
