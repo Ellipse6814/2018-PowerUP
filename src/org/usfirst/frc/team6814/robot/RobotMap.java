@@ -57,7 +57,7 @@ public class RobotMap {
 // 0, 1 are ports for digital display. false tells encoder not to invert. k4x is a more accurate because it counts 4 edges on 2 channels
 		  rightEnc = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		// a pulse is the light that gets cut of when the device rotates. this sets the travel distance for every pulse.
-	      rightEnc.setDistancePerPulse(1.0); 
+	      rightEnc.setDistancePerPulse(1.0);
 	      // sets the distance on the encoder back to 0.
 	      rightEnc.reset();
 		
