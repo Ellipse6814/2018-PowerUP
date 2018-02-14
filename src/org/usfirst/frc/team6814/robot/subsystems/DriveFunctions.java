@@ -62,10 +62,15 @@ public class DriveFunctions {
 	//uses a function to make the robot accelerate and brake gradually as opposed to just jolting forward and stopping at the last second.
 	public static double smoothSpeed(double totalDistance, double currentDistance) {
 		double smoothSpeed;
-		//the length of the parabola scales based on how far the robot needs to go
-		double stretch = 1/totalDistance;
-		//calculates an appropriate speed based on a reading from the encoder
-		smoothSpeed = Math.pow(stretch * currentDistance - 1, 2) * -1 + 1;
+		//use 'stetch' to set the speed that the robot accelerates and brakes
+		double stretch = 1;
+		double travelPercent = currentDistance/totalDistance * 100;
+		if(travelPercent > 15 && travelPercent < 85) {
+			smoothSpeed = 1;
+		}else {
+			//calculates an appropriate speed based on a reading from the encoder
+			smoothSpeed = Math.pow(stretch * currentDistance - 1, 2) * -1 + 1;
+		}
 		return smoothSpeed;
 		//all done!
 	}
