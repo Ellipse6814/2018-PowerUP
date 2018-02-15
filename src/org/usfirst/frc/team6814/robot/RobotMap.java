@@ -23,7 +23,14 @@ import edu.wpi.first.wpilibj.Timer;
  * floating around.
  */
 public class RobotMap {
+	
+	//TIMERS --------------------------------------------------------------------
+	
 	public static Timer timer = new Timer();
+	
+	//MOTORS --------------------------------------------------------------------
+	
+	public static Spark elevator = new Spark(4);
 	//left motors
 	public static Spark leftFrontMotor = new Spark(0);
 	public static Spark leftBackMotor = new Spark(1);
@@ -39,21 +46,26 @@ public class RobotMap {
 	public static DifferentialDrive driveBackBot = new DifferentialDrive(leftBackMotor,rightBackMotor);
 	//Setup differential drive
 	public static DifferentialDrive driveBot = new DifferentialDrive(leftSide,rightSide);
+	
+	//PNEUMATICS ------------------------------------------------------------------
+	
 	//setup compressor
 	public static Compressor compressor = new Compressor(0);
 	//setup DoubleSolenoid
 	public static DoubleSolenoid solenoid = new DoubleSolenoid(0,1);
+	
+	//MOVEMENT TRACKING(KIND OF) -----------------------------------------------------------------------
+	
 	//left Gyros
 	public static AnalogGyro leftGyro1 = new AnalogGyro(0);
 	public static AnalogGyro leftGyro2 = new AnalogGyro(1);
 	//right Gyros
 	public static AnalogGyro rightGyro1 = new AnalogGyro(2);
 	public static AnalogGyro rightGyro2 = new AnalogGyro(3);
-	public static Encoder leftEnc;
+	public static Encoder elevatorEnc;
 	public static Encoder rightEnc;
 	
 	public static void init() {
-		  
 // 0, 1 are ports for digital display. false tells encoder not to invert. k4x is a more accurate because it counts 4 edges on 2 channels
 		  rightEnc = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		// a pulse is the light that gets cut of when the device rotates. this sets the travel distance for every pulse.
@@ -61,15 +73,15 @@ public class RobotMap {
 	      // sets the distance on the encoder back to 0.
 	      rightEnc.reset();
 		
-	      leftEnc = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
-	      leftEnc.setDistancePerPulse(1.0);
-	      leftEnc.reset();
+	      elevatorEnc = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
+	      elevatorEnc.setDistancePerPulse(1.0);
+	      elevatorEnc.reset();
 	      
 	}
 	
 	public static void resetEnc() {
 		
-		RobotMap.leftEnc.reset();
+		RobotMap.elevatorEnc.reset();
 		RobotMap.rightEnc.reset();
 		
 	}

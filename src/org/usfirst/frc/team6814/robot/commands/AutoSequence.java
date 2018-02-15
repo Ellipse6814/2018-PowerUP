@@ -19,7 +19,7 @@ public class AutoSequence extends Command{
 		DriveFunctions.driveForward(2,6);
 	}
 	
-	@Override 
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}
