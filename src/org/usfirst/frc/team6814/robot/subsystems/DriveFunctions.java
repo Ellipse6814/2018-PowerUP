@@ -61,6 +61,7 @@ public class DriveFunctions {
 	}
 	//uses a function to make the robot accelerate and brake gradually as opposed to just jolting forward and stopping at the last second.
 	public static double smoothSpeed(double totalDistance, double currentDistance) {
+		//value to return
 		double smoothSpeed;
 		//use 'stetch' to set the speed that the robot accelerates and brakes
 		double stretch = 1;
