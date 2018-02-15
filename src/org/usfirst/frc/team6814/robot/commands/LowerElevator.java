@@ -9,12 +9,13 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class LowerElevator extends Command {
 	
-	public void initialize() {
+	@Override
+	protected void initialize() {
 	
 	}
 	
-	public void execute()
-	{
+	@Override
+	protected void execute() {
 		RobotMap.elevator.setSpeed(-0.5);
 		System.out.println("LowerElevator");
 	}
@@ -22,10 +23,11 @@ public class LowerElevator extends Command {
 	protected boolean isFinished() {
 		
 		//is the elevator at the lowest point?
-		if (RobotMap.elevatorEnc.get() == -1) {
+		if (RobotMap.elevatorEnc.get() == -2) {
 			return true;		
-		}		
-		return false;
+		}else {
+			return false;
+		}
 	}
 	
 	

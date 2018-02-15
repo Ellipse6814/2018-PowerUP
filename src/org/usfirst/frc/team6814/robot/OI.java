@@ -9,6 +9,8 @@ package org.usfirst.frc.team6814.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.usfirst.frc.team6814.robot.commands.LowerElevator;
+import org.usfirst.frc.team6814.robot.commands.RaiseElevator;
 
 //import org.usfirst.frc.team6814.robot.commands.Drive;
 
@@ -19,9 +21,13 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	public Joystick leftController = new Joystick(0);
 	public Joystick rightController = new Joystick(1);
-	public Button GrabbyGrabbyButton = new JoystickButton(rightController, 1);
+	//public Button GrabbyGrabbyButton = new JoystickButton(rightController, 1);
+	public Button raiseButton = new JoystickButton(rightController, 1);
+	public Button lowerButton = new JoystickButton(leftController, 1);
 	
 	public OI() {
+		raiseButton.whileHeld(new RaiseElevator());
+		lowerButton.whileHeld(new LowerElevator());
 		//button1.whenPressed(new Drive());
 		//controller.getRawAxis(5);
 	}
