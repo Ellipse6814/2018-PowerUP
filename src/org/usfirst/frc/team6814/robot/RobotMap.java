@@ -9,6 +9,7 @@ package org.usfirst.frc.team6814.robot;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Timer;
@@ -29,6 +30,10 @@ public class RobotMap {
 	public static DifferentialDrive driveBackBot = new DifferentialDrive(leftBackMotor,rightBackMotor);
 	public static Compressor compressor = new Compressor(0);
 	public static DoubleSolenoid solenoid = new DoubleSolenoid(0,1);
+	public static Spark rampyRampCtrl1 = new Spark(5);
+	public static Spark rampyRampCtrl2 = new Spark(6);
+	public static Servo rampyServo = new Servo(8); //Port may be subject to change
+	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;

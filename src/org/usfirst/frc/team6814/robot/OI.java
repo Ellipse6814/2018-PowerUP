@@ -20,6 +20,7 @@ public class OI {
 	public Joystick leftController = new Joystick(0);
 	public Joystick rightController = new Joystick(1);
 	public Button GrabbyGrabbyButton = new JoystickButton(rightController, 1);
+	public Button RampyRamp = new JoystickButton(rightController, 3);
 	
 	public OI() {
 		//button1.whenPressed(new Drive());

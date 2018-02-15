@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
 		drive = new Drive(m_oi.leftController, m_oi.rightController);
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		SmartDashboard.putData("Auto mode", m_chooser); //I think we are using the LabView dashboard
 	}
 
 	/**
@@ -148,55 +148,41 @@ public class Robot extends TimedRobot {
 	public void getArcadeConfig() {
 		String arcadeConfig = DriverStation.getInstance().getGameSpecificMessage();
 		char usableArray[] = arcadeConfig.toCharArray();
+		
 
 		
 		//IF BOT IS ON THE LEFT 
 		
 		// Autonomous code if both switch and scale on the left
-		if ((usableArray[0] == 'L' && usableArray[1] == 'L') || (usableArray[0] == 'l' && usableArray[1] == 'l')) {
+		if ((usableArray[1] == 'L') || (usableArray[1] == 'l')) {
 
 		}
 
 		// Autonomous code if both switch and scale are on the right
-		else if ((usableArray[0] == 'R' && usableArray[1] == 'R') || (usableArray[0] == 'r' && usableArray[1] == 'r')) {
-
+		else if ((usableArray[1] == 'R') || (usableArray[1] == 'r')) {
+			
+			
+			
 		}
 
-		// Autonomous code if the home switch is on the left and the scale is on the
-		// right
-		else if ((usableArray[0] == 'L' && usableArray[1] == 'R') || (usableArray[0] == 'l' && usableArray[1] == 'r')) {
-
-		}
-
-		// Autonomous code if the home switch is on the right and the scale is on the
-		// left
-		else if ((usableArray[0] == 'R' && usableArray[1] == 'L') || (usableArray[0] == 'r' && usableArray[1] == 'l')) {
-
-		}
-		
 		//IF BOT IS ON THE RIGHT
 		
-		//Autonomous code if both switch and scale on the left
-		if ((usableArray[0] == 'L' && usableArray[1] == 'L') || (usableArray[0] == 'l' && usableArray[1] == 'l')) {
-
-		}
-
-		// Autonomous code if both switch and scale are on the right
-		else if ((usableArray[0] == 'R' && usableArray[1] == 'R') || (usableArray[0] == 'r' && usableArray[1] == 'r')) {
-
-		}
-
 		// Autonomous code if the home switch is on the left and the scale is on the
 		// right
-		else if ((usableArray[0] == 'L' && usableArray[1] == 'R') || (usableArray[0] == 'l' && usableArray[1] == 'r')) {
+		else if (( usableArray[1] == 'R') || ( usableArray[1] == 'r')) {
 
 		}
 
 		// Autonomous code if the home switch is on the right and the scale is on the
 		// left
-		else if ((usableArray[0] == 'R' && usableArray[1] == 'L') || (usableArray[0] == 'r' && usableArray[1] == 'l')) {
-
+		else if ((usableArray[1] == 'L') || (usableArray[1] == 'l')) {
+  
+			
 		}
-
+		
+		
 	}
+	
+	
+	
 }
