@@ -10,6 +10,7 @@ import org.usfirst.frc.team6814.robot.commands.AutoDrive;
 import org.usfirst.frc.team6814.robot.commands.Drive;
 import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
+import org.usfirst.frc.team6814.robot.commands.LightyLighty;
 import org.usfirst.frc.team6814.robot.commands.Turn90;
 import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
 
@@ -37,6 +38,8 @@ public class Robot extends TimedRobot {
 	public AutoDrive autoDrive;
 	public Turn90 turn90;
 	public GrabbyGrabbyCtrl grabbygrabby;
+	public LightyLighty lightylighty;
+	
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -50,7 +53,7 @@ public class Robot extends TimedRobot {
 		RobotMap.timer.start();
 		RobotMap.ahrs = new AHRS(SPI.Port.kMXP); 
 		m_oi = new OI();
-		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.leftController);
+		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.rightController);
 		autoDrive = new AutoDrive();
 		drive = new Drive(m_oi.leftController, m_oi.rightController, RobotMap.ahrs);
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
@@ -153,6 +156,7 @@ public class Robot extends TimedRobot {
 		//Scheduler.getInstance().add(drive);
 		drive.start();
 		grabbygrabby.start();
+//		lightylighty.start();
 	}
 
 	/**

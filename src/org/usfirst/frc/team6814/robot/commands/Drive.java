@@ -16,9 +16,11 @@ public class Drive extends Command {
 	private boolean forwards = true;
 	private int turn = -1;
 	private int lastturn = -1;
-	private boolean wantedTurn = false;
+	private int wantedTurn = 0;
 	private int lastStatus = 0; // 1:forward straught; 2:backward straight; 3: turning whatever
 	private AHRS ahrs;
+	private int count = 0;
+	private double GYROturnSpd = 0.6;
 	// private boolean LEDWonderAround = true;
 	// private PWM r;
 	// private PWM g;
@@ -27,6 +29,10 @@ public class Drive extends Command {
 	public Drive(Joystick leftController, Joystick rightController, AHRS ahrs) {//
 		this.leftController = leftController;
 		this.rightController = rightController;
+		RobotMap.leftBackMotor.setExpiration(0.1);
+		RobotMap.leftFrontMotor.setExpiration(0.1);
+		RobotMap.rightBackMotor.setExpiration(0.1);
+		RobotMap.rightFrontMotor.setExpiration(0.1);
 		this.ahrs = ahrs;
 		resetGYRO();
 		// this.r = RobotMap.r;
@@ -44,10 +50,16 @@ public class Drive extends Command {
 
 	@Override
 	protected void execute() {
-		double l = leftController.getRawAxis(1);
-		double r = leftController.getRawAxis(0);
-		
-		System.out.println(fAngle);
+		double rl = leftController.getRawAxis(1); // raw data
+		double rr = leftController.getRawAxis(5);
+		double l = (rl + rr) / 2;
+		double r = rl - rr;
+		if (count > 20) {
+			count = 0;
+
+		}
+		// System.out.println(ahrs.getAngle()-fAngle);
+		count++;
 		// System.out.println(this.leftController.getPOV());
 		turn90();
 		Forcestriaght(l, r);
@@ -57,11 +69,12 @@ public class Drive extends Command {
 			if (l > -0.1 && l < 0.1 && Math.abs(r) > 0.5) {
 				rotate(r);
 			} else {
-				arcadeDrive(l, r);
+				// arcadeDrive(l, r);
+				cheesyDrive(l, r);
 			}
 			// System.out.println(ahrs.getAngle());
 		} else {
-			setLED(255, 0, 0);
+			setLight(-0.03);// force straight light
 		}
 
 	}
@@ -71,9 +84,12 @@ public class Drive extends Command {
 		turn = this.leftController.getPOV();
 		if (!(turn == -1) && lastturn == -1) {
 			resetGYRO();
-			wantedTurn = true;
-			fAngle=-(turn-180);
-			System.out.println("Setting turn angle: "+fAngle);
+			wantedTurn = 10;
+			if (turn > 180) {
+				turn = 180 - turn;
+			}
+			fAngle += turn;
+			// System.out.println("Setting turn" + turn + " angle: " + fAngle);
 		}
 	}
 
@@ -116,57 +132,20 @@ public class Drive extends Command {
 			resetGYRO();
 			lastStatus = 1;
 			straight = true;
-			setLED(0, 255, 0);
+			setLight(-0.05);
 			// System.out.println("forwards");
 		} else if (Math.abs(l - r) <= straightAngle && l < 0 && r < 0 && !(lastStatus == 2)) { // start going straight
 			resetGYRO();
 			lastStatus = 2;
 			straight = true;
-			setLED(255, 255, 0);
+			setLight(-0.07);
 			// System.out.println("backwards");
 		} else {
 			lastStatus = 3;
 			straight = false;
-			setLED(0, 0, 255);
+			setLight(-0.09);
 			// System.out.println("turing");
 		}
-
-		// if (Math.abs(l - r) > straightAngle && straight == true) { // ended going
-		// straight
-		// straight = false;
-		// System.out.println("turning");
-		// }
-		// if (l >= 0 && r >= 0 && forwards == false) {
-		// forwards = true;
-		// resetGYRO();
-		// System.out.println("Forwards");
-		// } else if (l < 0 && r < 0 && forwards == true) {
-		// forwards = false;
-		// resetGYRO();
-		// System.out.println("Backwards");
-		// }
-		// } else {
-		// if (Math.abs(r) <= straightAngle && straight == false) { // start going
-		// straight
-		// resetGYRO();
-		// straight = true;
-		// System.out.println("straight");
-		// } else if (Math.abs(r) > straightAngle && straight == true) { // ended going
-		// straight
-		// straight = false;
-		// System.out.println("turning");
-		// }
-		// if (l >= 0 && forwards == false) {
-		// forwards = true;
-		// resetGYRO();
-		// System.out.println("Forwards");
-		// } else if (l < 0 && forwards == true) {
-		// forwards = false;
-		// resetGYRO();
-		// System.out.println("Backwards");
-		// }
-		// }
-
 	}
 
 	private void cheesyDrive(double power, double turn) {
@@ -204,19 +183,24 @@ public class Drive extends Command {
 	 * }
 	 */
 	private void ctrlMotors(double l, double r) {
-		RobotMap.driveFrontBot.tankDrive((l + GYROl(l, r)) * -1, (r + GYROr(l, r)) * -1);
-		RobotMap.driveBackBot.tankDrive((l + GYROl(l, r)) * -1, (r + GYROr(l, r)) * -1);
+		RobotMap.driveFrontBot.tankDrive((l + GYROl(l, r)) * 1, (r + GYROr(l, r)) * 1);
+		RobotMap.driveBackBot.tankDrive((l + GYROl(l, r)) * 1, (r + GYROr(l, r)) * 1);
 	}
 
 	private double GYROl(double l, double r) {
-		if (wantedTurn) {
-			if (fAngle>2) {
-				return 0.5;
-			}else if (fAngle<-2){
-				return -0.5;
-			}else {
-				wantedTurn = false;
-				System.out.println("Turn finished.");
+		double turnSpd = 0.6;
+		if (wantedTurn > 0) {
+			if (ahrs.getAngle() - fAngle > 1) {
+				// System.out.println(">2");
+				wantedTurn = 10;
+				return turnSpd;
+			} else if (ahrs.getAngle() - fAngle < -1) {
+				// System.out.println("<-2");
+				wantedTurn = 10;
+				return -turnSpd;
+			} else {
+				wantedTurn -= 1;
+				// System.out.println("Turn finished.");
 			}
 		} else if (straight)
 			if (ahrs.getAngle() - fAngle > 1) {
@@ -226,15 +210,20 @@ public class Drive extends Command {
 	}
 
 	private double GYROr(double l, double r) {
-		if (wantedTurn) {
-			if (fAngle<-2) {
-				return 0.5;
-			}else if(fAngle>2) {
-				return -0.5;
+		double turnSpd = 0.6;
+		if (wantedTurn > 0) {
+			if (ahrs.getAngle() - fAngle > 1) {
+				// System.out.println(">2");
+				wantedTurn = 100;
+				return -turnSpd;
+			} else if (ahrs.getAngle() - fAngle < -1) {
+				// System.out.println("<-2");
+				wantedTurn = 100;
+				return turnSpd;
+			} else {
+				wantedTurn -= 1;
+				// System.out.println("Turn finished.");
 			}
-//			else {
-//				wantedTurn = false;
-//			}
 		} else if (straight)
 			if (ahrs.getAngle() - fAngle < -1) {
 				return -0.1;
@@ -247,20 +236,13 @@ public class Drive extends Command {
 		// System.out.println(fAngle);
 	}
 
-	private void setLED(int r, int g, int b) {
-		// LEDWonderAround=false;
-		// this.r.setRaw(r);
-		// this.g.setRaw(g);
-		// this.b.setRaw(b);
+	private void setPower() {
+		RobotMap.whoHasPwrOverLight = 0;
 	}
 
-	// private void LEDwonderAround() {
-	// if (LEDWonderAround) {
-	// this.r.setRaw(r);
-	// this.g.setRaw(g);
-	// this.b.setRaw(b);
-	// }
-	// }
+	private void setLight(double a) {
+		RobotMap.light = a;
+	}
 
 	@Override
 	protected void end() {

@@ -12,6 +12,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -27,11 +28,14 @@ public class RobotMap {
 	public static Spark rightFrontMotor = new Spark(2);
 	public static Spark leftBackMotor = new Spark(1);
 	public static Spark rightBackMotor = new Spark(3);
+	public static SpeedController lightStrip = new Spark(6);
 	public static DifferentialDrive driveFrontBot = new DifferentialDrive(leftFrontMotor,rightFrontMotor);
 	public static DifferentialDrive driveBackBot = new DifferentialDrive(leftBackMotor,rightBackMotor);
 	public static Compressor compressor = new Compressor(0);
 	public static DoubleSolenoid solenoid = new DoubleSolenoid(0,1);
 	public static AHRS ahrs;
+	public static double light=0.5;
+	public static int whoHasPwrOverLight; //0:drive, 1:grabbygrabby
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;
