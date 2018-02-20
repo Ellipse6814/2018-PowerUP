@@ -3,6 +3,7 @@ package org.usfirst.frc.team6814.robot.subsystems;
 import org.usfirst.frc.team6814.robot.RobotMap;
 
 public class DriveFunctions {
+	
 	public static void driveForward(double feet, double inches) {
 		double distance = (feet * 12) + inches;
 		//We're only going to run one of these functions at a time so using a while loop is not an issue

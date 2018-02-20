@@ -9,11 +9,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class LowerElevator extends Command {
 	
 	@Override
-	protected void initialize() {
-	
-	}
-	
-	@Override
 	protected void execute() {
 		RobotMap.elevator.setSpeed(-0.5);
 		System.out.println("LowerElevator");

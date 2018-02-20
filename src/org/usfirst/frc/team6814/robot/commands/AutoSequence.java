@@ -5,23 +5,20 @@ import org.usfirst.frc.team6814.robot.subsystems.DriveFunctions;
 public class AutoSequence extends Command{
 	double speed;
 	double inches_perTurn = Math.PI * 6;
-	public AutoSequence(double _speed) {
-		this.speed = _speed;
-	}
+	boolean finished = false;
 	
-	@Override
-	protected void initialize() {
-		
+	public AutoSequence() {
 	}
 	
 	@Override
 	protected void execute() {
-		DriveFunctions.driveForward(2,6);
+		DriveFunctions.driveForward(1,6);
+		finished = true;
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return finished;
 	}
 	
 	@Override
