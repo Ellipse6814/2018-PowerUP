@@ -2,4 +2,4 @@
 ***
 ## Notes:
 + All of the teleop currently works.
-+ Autonomous **might** work but is still untested.
++ Autonomous *might* work but is still untested.
