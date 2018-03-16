@@ -33,7 +33,7 @@ public class AutoDrive extends Command{
 	
 	@Override
 	protected void end() {
-		RobotMap.timer.reset();
+		
 	}
 	
 }
