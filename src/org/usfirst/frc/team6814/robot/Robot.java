@@ -150,7 +150,7 @@ public class Robot extends TimedRobot {
 		// sets encoder distance to 0.
 		
 		RobotMap.resetEnc();
-		
+		auto.start();
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
