@@ -44,7 +44,6 @@ public class Robot extends TimedRobot {
 	public GrabbyGrabbyCtrl grabbygrabby;
 	public AutoSequence auto;
 	public Drive2 drive;
-	public GrabbyGrabbyCtrl grabbygrabby;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
