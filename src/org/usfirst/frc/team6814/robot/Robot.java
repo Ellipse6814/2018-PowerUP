@@ -91,7 +91,7 @@ public class Robot extends TimedRobot {
 		
 		// 1 left field |  2 mid | 3 right
 		// Autonomous code if both switch and scale on the left
-		if ((arcadeLocation == 1 &&  (usableArray[1] == 'L') ||  usableArray[1] == 'l')) {
+		if ((arcadeLocation == 1 &&  (usableArray[0] == 'L') ||  usableArray[0] == 'l')) {
 //			
 //			DriveFunctions.driveForward(1.0, 5, 9.96);
 //			DriveFunctions.driveLeft(1.0, 2, 0); 
@@ -101,7 +101,7 @@ public class Robot extends TimedRobot {
 		} 
 
 		// Autonomous code if both switch and scale are on the right
-		else if ((arcadeLocation == 1 && (usableArray[1] == 'R') || usableArray[1] == 'r')) {
+		else if ((arcadeLocation == 1 && (usableArray[0] == 'R') || usableArray[0] == 'r')) {
 
 //			DriveFunctions.driveForward(1.0, 5, 9.96);
 //			DriveFunctions.driveRight(1.0, 0, 0); //supposed to make it turn right in place
@@ -113,7 +113,7 @@ public class Robot extends TimedRobot {
 
 		// Autonomous code if the home switch is on the left and the scale is on the
 		// right
-		else if ((arcadeLocation == 3 && (usableArray[1] == 'R') || usableArray[1] == 'r')) {
+		else if ((arcadeLocation == 3 && (usableArray[0] == 'R') || usableArray[0] == 'r')) {
 //			
 //			DriveFunctions.driveForward(1.0, 5, 9.96);
 //			DriveFunctions.driveRight(1.0, 2, 0);
@@ -123,7 +123,7 @@ public class Robot extends TimedRobot {
 
 		// Autonomous code if the home switch is on the right and the scale is on the
 		// left
-		else if ((arcadeLocation == 3 && (usableArray[1] == 'L') ||  usableArray[1] == 'l')) {
+		else if ((arcadeLocation == 3 && (usableArray[0] == 'L') ||  usableArray[0] == 'l')) {
 
 //			DriveFunctions.driveForward(1.0, 5, 9.96);
 //			DriveFunctions.driveLeft(1.0, 0, 0); //supposed to make it turn left in place
