@@ -5,9 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+//
+//
+//
+
+//
+
 package org.usfirst.frc.team6814.robot;
 
-//FRC imports.
+//THIS VERSION OF ROBOT CODE IS ONLY FOR USE IF OUR MASTER BRANCH FAILS
+
+//FRC IMPORTS ----------------------------------------------------------------
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -28,21 +36,12 @@ import org.usfirst.frc.team6814.robot.commands.Drive2;
 import org.usfirst.frc.team6814.robot.commands.AutoDrive;
 import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.properties h file in the
- * project
- */
-
 public class Robot extends TimedRobot {
 	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static OI m_oi;
 	//public Drive drive;
 	public AutoDrive autoDrive;
 	public GrabbyGrabbyCtrl grabbygrabby;
-	public AutoSequence auto;
 	public Drive2 drive;
 
 	Command m_autonomousCommand;
@@ -56,7 +55,6 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		RobotMap.timer.start();
 		m_oi = new OI();
-		auto = new AutoSequence();
 		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.leftController);
 		autoDrive = new AutoDrive();
 		//drive = new Drive(m_oi.leftController, m_oi.rightController);
@@ -168,15 +166,14 @@ public class Robot extends TimedRobot {
 		// sets encoder distance to 0.
 		
 		RobotMap.resetEnc();
-		auto.start();
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
+		//this code drives the robot forward...that is all
 		autoDrive.start();
-
 	}
 
 	/**
