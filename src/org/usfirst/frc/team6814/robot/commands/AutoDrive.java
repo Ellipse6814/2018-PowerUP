@@ -10,8 +10,7 @@ public class AutoDrive extends Command{
 	
 	@Override
 	protected void execute() {
-		RobotMap.driveFrontBot.tankDrive(currentSpeed, currentSpeed);
-		RobotMap.driveBackBot.tankDrive(currentSpeed, currentSpeed);
+		RobotMap.driveBot.tankDrive(.4,.4);
 		if(RobotMap.timer.get() > 3) {
 			currentSpeed *= -1;
 			RobotMap.timer.reset();

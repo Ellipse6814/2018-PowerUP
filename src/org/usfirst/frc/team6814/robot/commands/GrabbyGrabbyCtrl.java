@@ -8,6 +8,12 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class GrabbyGrabbyCtrl extends Command{
 	private Joystick rightStick;
+<<<<<<< HEAD
+=======
+	private int rightTrigger = 1;
+	
+	private boolean lastAction = false; //[true:Fwd|false:Rev]every time solenoid status CHANGES, it will log the current status (it doesn't log a billion times a second)
+>>>>>>> master
 	
 	
 	public GrabbyGrabbyCtrl(Joystick rightJoystick) {
@@ -16,7 +22,7 @@ public class GrabbyGrabbyCtrl extends Command{
 	
 	@Override
 	protected void execute() {
-		if(this.rightStick.getRawButton(1)) {
+		if(this.rightStick.getRawButton(rightTrigger)) {
 			RobotMap.solenoid.set(DoubleSolenoid.Value.kForward);
 		//	if (!lastAction) {lastAction = true;System.out.println("Intake: Grab");}
 		}else {
