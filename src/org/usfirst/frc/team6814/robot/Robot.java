@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
-import org.usfirst.frc.team6814.robot.commands.Drive;
+//import org.usfirst.frc.team6814.robot.commands.Drive;
 import org.usfirst.frc.team6814.robot.commands.AutoDrive;
 import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
 import org.usfirst.frc.team6814.robot.commands.AutoSequence;
@@ -39,12 +39,11 @@ import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
 public class Robot extends TimedRobot {
 	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static OI m_oi;
-	public Drive drive;
+	//public Drive drive;
 	public AutoDrive autoDrive;
 	public GrabbyGrabbyCtrl grabbygrabby;
 	public AutoSequence auto;
 	public Drive2 drive;
-	public GrabbyGrabbyCtrl grabbygrabby;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -60,7 +59,7 @@ public class Robot extends TimedRobot {
 		auto = new AutoSequence();
 		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.leftController);
 		autoDrive = new AutoDrive();
-		drive = new Drive(m_oi.leftController, m_oi.rightController);
+		//drive = new Drive(m_oi.leftController, m_oi.rightController);
 		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.leftController);
 		autoDrive = new AutoDrive();
 		drive = new Drive2(m_oi.leftController, m_oi.rightController);
@@ -116,45 +115,32 @@ public class Robot extends TimedRobot {
 
 		// Autonomous code if both switch and scale are on the right
 		else if ((arcadeLocation == 1 && (usableArray[0] == 'R') || usableArray[0] == 'r')) {
-
 //			DriveFunctions.driveForward(1.0, 5, 9.96);
 //			DriveFunctions.driveRight(1.0, 0, 0); //supposed to make it turn right in place
 //			DriveFunctions.driveForward(1.0, 20, 0);
 //			DriveFunctions.driveLeft(1.0, 0, 0); //supposed to make it turn left in place
-//			DriveFunctions.driveForward(1.0, 22, 1.68);
-//			
-		String arcadeConfig = DriverStation.getInstance().getGameSpecificMessage();
-		char usableArray[] = arcadeConfig.toCharArray();
-
-		// Autonomous code if both switch and scale on the left
-		if ((usableArray[0] == 'L' && usableArray[1] == 'L') || (usableArray[0] == 'l' && usableArray[1] == 'l')) {
-
+			
 		}
 
-		// Autonomous code if both switch and scale are on the right
-		else if ((usableArray[0] == 'R' && usableArray[1] == 'R') || (usableArray[0] == 'r' && usableArray[1] == 'r')) {
-
-		}
-
+	
 		// Autonomous code if the home switch is on the left and the scale is on the
 		// right
 		else if ((arcadeLocation == 3 && (usableArray[0] == 'R') || usableArray[0] == 'r')) {
-
-		else if ((arcadeLocation == 3 && (usableArray[1] == 'R') || usableArray[1] == 'r')) {
+			
+		}
+			
 //			
 //			DriveFunctions.driveForward(1.0, 5, 9.96);
 //			DriveFunctions.driveRight(1.0, 2, 0);
 //			DriveFunctions.driveForward(1.0, 24, 11.64);
 //			
-		else if ((usableArray[0] == 'L' && usableArray[1] == 'R') || (usableArray[0] == 'l' && usableArray[1] == 'r')) {
-      
-		}
-
+		
 		// Autonomous code if the home switch is on the right and the scale is on the
 		// left
 		else if ((arcadeLocation == 3 && (usableArray[0] == 'L') ||  usableArray[0] == 'l')) {
+			
+		}
 
-		else if ((arcadeLocation == 3 && (usableArray[1] == 'L') ||  usableArray[1] == 'l')) {
 
 //			DriveFunctions.driveForward(1.0, 5, 9.96);
 //			DriveFunctions.driveLeft(1.0, 0, 0); //supposed to make it turn left in place
@@ -162,9 +148,7 @@ public class Robot extends TimedRobot {
 //			DriveFunctions.driveRight(1.0, 0, 0); //supposed to make it turn right in place
 //			DriveFunctions.driveForward(1.0, 22, 1.68); 
 //		
-		else if ((usableArray[0] == 'R' && usableArray[1] == 'L') || (usableArray[0] == 'r' && usableArray[1] == 'l')) {
-
-		}
+	
 
 	}
 	
