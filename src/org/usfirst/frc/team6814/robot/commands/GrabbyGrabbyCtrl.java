@@ -8,9 +8,12 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class GrabbyGrabbyCtrl extends Command{
 	private Joystick rightStick;
+<<<<<<< HEAD
+=======
 	private int rightTrigger = 1;
 	
 	private boolean lastAction = false; //[true:Fwd|false:Rev]every time solenoid status CHANGES, it will log the current status (it doesn't log a billion times a second)
+>>>>>>> master
 	
 	
 	public GrabbyGrabbyCtrl(Joystick rightJoystick) {

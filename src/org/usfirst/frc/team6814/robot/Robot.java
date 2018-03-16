@@ -6,14 +6,25 @@
 /*----------------------------------------------------------------------------*/
 
 package org.usfirst.frc.team6814.robot;
+<<<<<<< HEAD
+=======
 
 //FRC imports.
+>>>>>>> master
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+<<<<<<< HEAD
+import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
+import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team6814.robot.commands.Drive;
+import org.usfirst.frc.team6814.robot.commands.AutoDrive;
+import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
+import org.usfirst.frc.team6814.robot.commands.AutoSequence;
+=======
 
 //Our imports.
 import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
@@ -21,18 +32,31 @@ import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team6814.robot.commands.Drive2;
 import org.usfirst.frc.team6814.robot.commands.AutoDrive;
 import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
+>>>>>>> master
 
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
  * documentation. If you change the name of this class or the package after
+<<<<<<< HEAD
+ * creating this project, you must also update the build.properties h file in the
+ * project
+=======
+>>>>>>> master
  */
 public class Robot extends TimedRobot {
 	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static OI m_oi;
+<<<<<<< HEAD
+	public Drive drive;
+	public AutoDrive autoDrive;
+	public GrabbyGrabbyCtrl grabbygrabby;
+	public AutoSequence auto;
+=======
 	public Drive2 drive;
 	public AutoDrive autoDrive;
 	public GrabbyGrabbyCtrl grabbygrabby;
+>>>>>>> master
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -45,9 +69,16 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		RobotMap.timer.start();
 		m_oi = new OI();
+<<<<<<< HEAD
+		auto = new AutoSequence();
+		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.leftController);
+		autoDrive = new AutoDrive();
+		drive = new Drive(m_oi.leftController, m_oi.rightController);
+=======
 		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.leftController);
 		autoDrive = new AutoDrive();
 		drive = new Drive2(m_oi.leftController, m_oi.rightController);
+>>>>>>> master
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -61,6 +92,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 
+<<<<<<< HEAD
+		// sets encoder distance to 0.
+		RobotMap.resetEnc();
+		
+=======
+>>>>>>> master
 	}
 
 	@Override
@@ -81,6 +118,31 @@ public class Robot extends TimedRobot {
 	 */
 	
 	public void getArcadeConfig() {
+<<<<<<< HEAD
+		String arcadeConfig = DriverStation.getInstance().getGameSpecificMessage(); 
+		char usableArray[] = arcadeConfig.toCharArray();
+		int arcadeLocation = DriverStation.getInstance().getLocation();
+		
+		// 1 left field |  2 mid | 3 right
+		// Autonomous code if both switch and scale on the left
+		if ((arcadeLocation == 1 &&  (usableArray[1] == 'L') ||  usableArray[1] == 'l')) {
+//			
+//			DriveFunctions.driveForward(1.0, 5, 9.96);
+//			DriveFunctions.driveLeft(1.0, 2, 0); 
+//			DriveFunctions.driveForward(1.0, 24, 11.64); 
+			
+		} 
+
+		// Autonomous code if both switch and scale are on the right
+		else if ((arcadeLocation == 1 && (usableArray[1] == 'R') || usableArray[1] == 'r')) {
+
+//			DriveFunctions.driveForward(1.0, 5, 9.96);
+//			DriveFunctions.driveRight(1.0, 0, 0); //supposed to make it turn right in place
+//			DriveFunctions.driveForward(1.0, 20, 0);
+//			DriveFunctions.driveLeft(1.0, 0, 0); //supposed to make it turn left in place
+//			DriveFunctions.driveForward(1.0, 22, 1.68);
+//			
+=======
 		String arcadeConfig = DriverStation.getInstance().getGameSpecificMessage();
 		char usableArray[] = arcadeConfig.toCharArray();
 
@@ -92,18 +154,39 @@ public class Robot extends TimedRobot {
 		// Autonomous code if both switch and scale are on the right
 		else if ((usableArray[0] == 'R' && usableArray[1] == 'R') || (usableArray[0] == 'r' && usableArray[1] == 'r')) {
 
+>>>>>>> master
 		}
 
 		// Autonomous code if the home switch is on the left and the scale is on the
 		// right
+<<<<<<< HEAD
+		else if ((arcadeLocation == 3 && (usableArray[1] == 'R') || usableArray[1] == 'r')) {
+//			
+//			DriveFunctions.driveForward(1.0, 5, 9.96);
+//			DriveFunctions.driveRight(1.0, 2, 0);
+//			DriveFunctions.driveForward(1.0, 24, 11.64);
+//			
+=======
 		else if ((usableArray[0] == 'L' && usableArray[1] == 'R') || (usableArray[0] == 'l' && usableArray[1] == 'r')) {
 
+>>>>>>> master
 		}
 
 		// Autonomous code if the home switch is on the right and the scale is on the
 		// left
+<<<<<<< HEAD
+		else if ((arcadeLocation == 3 && (usableArray[1] == 'L') ||  usableArray[1] == 'l')) {
+
+//			DriveFunctions.driveForward(1.0, 5, 9.96);
+//			DriveFunctions.driveLeft(1.0, 0, 0); //supposed to make it turn left in place
+//			DriveFunctions.driveForward(1.0, 20, 0);
+//			DriveFunctions.driveRight(1.0, 0, 0); //supposed to make it turn right in place
+//			DriveFunctions.driveForward(1.0, 22, 1.68); 
+//			
+=======
 		else if ((usableArray[0] == 'R' && usableArray[1] == 'L') || (usableArray[0] == 'r' && usableArray[1] == 'l')) {
 
+>>>>>>> master
 		}
 
 	}
@@ -120,10 +203,21 @@ public class Robot extends TimedRobot {
 		 */
 
 		// schedule the autonomous command (example)
+<<<<<<< HEAD
+		
+		// sets encoder distance to 0.
+		
+		RobotMap.resetEnc();
+		auto.start();
+		if (m_autonomousCommand != null) {
+			m_autonomousCommand.start();
+		}
+=======
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
 		autoDrive.start();
+>>>>>>> master
 	}
 
 	/**
