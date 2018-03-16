@@ -39,7 +39,7 @@ import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
 public class Robot extends TimedRobot {
 	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static OI m_oi;
-	public Drive drive;
+	//public Drive drive;
 	public AutoDrive autoDrive;
 	public GrabbyGrabbyCtrl grabbygrabby;
 	public AutoSequence auto;
@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
 		auto = new AutoSequence();
 		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.leftController);
 		autoDrive = new AutoDrive();
-		drive = new Drive(m_oi.leftController, m_oi.rightController);
+		//drive = new Drive(m_oi.leftController, m_oi.rightController);
 		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.leftController);
 		autoDrive = new AutoDrive();
 		drive = new Drive2(m_oi.leftController, m_oi.rightController);
@@ -121,10 +121,6 @@ public class Robot extends TimedRobot {
 //			DriveFunctions.driveRight(1.0, 0, 0); //supposed to make it turn right in place
 //			DriveFunctions.driveForward(1.0, 20, 0);
 //			DriveFunctions.driveLeft(1.0, 0, 0); //supposed to make it turn left in place
-//			DriveFunctions.driveForward(1.0, 22, 1.68);
-//			
-		String arcadeConfig = DriverStation.getInstance().getGameSpecificMessage();
-		char usableArray[] = arcadeConfig.toCharArray();
 
 		// Autonomous code if both switch and scale on the left
 		if ((usableArray[0] == 'L' && usableArray[1] == 'L') || (usableArray[0] == 'l' && usableArray[1] == 'l')) {
