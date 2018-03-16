@@ -13,7 +13,7 @@ public class Drive1 extends Command {
 	private Joystick rightController;
 
 
-	public Drive1(Joystick leftController, Joystick rightController, AHRS ahrs) {//
+	public Drive1(Joystick leftController, Joystick rightController) {//
 		this.leftController = leftController;
 		this.rightController = rightController;
 		RobotMap.leftBackMotor.setExpiration(0.1);

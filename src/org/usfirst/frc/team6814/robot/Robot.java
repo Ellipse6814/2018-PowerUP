@@ -7,21 +7,21 @@
 
 package org.usfirst.frc.team6814.robot;
 import org.usfirst.frc.team6814.robot.commands.AutoDrive;
-import org.usfirst.frc.team6814.robot.commands.Drive;
+//import org.usfirst.frc.team6814.robot.commands.Drive;
 import org.usfirst.frc.team6814.robot.commands.Drive1;
 import org.usfirst.frc.team6814.robot.commands.Elevator;
 import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
 import org.usfirst.frc.team6814.robot.commands.LightyLight;
 import org.usfirst.frc.team6814.robot.commands.Turn90;
-import org.usfirst.frc.team6814.robot.commands.Witch;
+//import org.usfirst.frc.team6814.robot.commands.Witch;
 import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
 
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.DriverStation;
+//import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SPI;
+//import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -66,15 +66,15 @@ public class Robot extends TimedRobot {
 		 RobotMap.encoder.reset();
 		
 		RobotMap.timer.start();
-		RobotMap.ahrs = new AHRS(SPI.Port.kMXP); 
+		//RobotMap.ahrs = new AHRS(SPI.Port.kMXP); 
 		m_oi = new OI();
 		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.rightController);
 		autoDrive = new AutoDrive();
-		drive = new Drive1(m_oi.leftController, m_oi.rightController, RobotMap.ahrs);
+		//drive = new Drive1(m_oi.leftController, m_oi.rightController, RobotMap.ahrs);
 		lightylight = new LightyLight();
 		elevator = new Elevator(m_oi.rightController);
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
-		turn90 = new Turn90(RobotMap.ahrs);
+		//turn90 = new Turn90(RobotMap.ahrs);
 		
 		
 
@@ -109,34 +109,35 @@ public class Robot extends TimedRobot {
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
-	
-	public void getArcadeConfig() {
-		String arcadeConfig = DriverStation.getInstance().getGameSpecificMessage();
-		char usableArray[] = arcadeConfig.toCharArray();
 
-		// Autonomous code if both switch and scale on the left
-		if ((usableArray[0] == 'L' && usableArray[1] == 'L') || (usableArray[0] == 'l' && usableArray[1] == 'l')) {
-
-		}
-
-		// Autonomous code if both switch and scale are on the right
-		else if ((usableArray[0] == 'R' && usableArray[1] == 'R') || (usableArray[0] == 'r' && usableArray[1] == 'r')) {
-
-		}
-
-		// Autonomous code if the home switch is on the left and the scale is on the
-		// right
-		else if ((usableArray[0] == 'L' && usableArray[1] == 'R') || (usableArray[0] == 'l' && usableArray[1] == 'r')) {
-
-		}
-
-		// Autonomous code if the home switch is on the right and the scale is on the
-		// left
-		else if ((usableArray[0] == 'R' && usableArray[1] == 'L') || (usableArray[0] == 'r' && usableArray[1] == 'l')) {
-
-		}
-
-	}
+	//WE MAY USE THIS LATER BUT -----------------------------------------------------------------------------------------
+//	public void getArcadeConfig() {
+//		String arcadeConfig = DriverStation.getInstance().getGameSpecificMessage();
+//		char usableArray[] = arcadeConfig.toCharArray();
+//
+//		// Autonomous code if both switch and scale on the left
+//		if ((usableArray[0] == 'L' && usableArray[1] == 'L') || (usableArray[0] == 'l' && usableArray[1] == 'l')) {
+//
+//		}
+//
+//		// Autonomous code if both switch and scale are on the right
+//		else if ((usableArray[0] == 'R' && usableArray[1] == 'R') || (usableArray[0] == 'r' && usableArray[1] == 'r')) {
+//
+//		}
+//
+//		// Autonomous code if the home switch is on the left and the scale is on the
+//		// right
+//		else if ((usableArray[0] == 'L' && usableArray[1] == 'R') || (usableArray[0] == 'l' && usableArray[1] == 'r')) {
+//
+//		}
+//
+//		// Autonomous code if the home switch is on the right and the scale is on the
+//		// left
+//		else if ((usableArray[0] == 'R' && usableArray[1] == 'L') || (usableArray[0] == 'r' && usableArray[1] == 'l')) {
+//
+//		}
+//
+//	}
 	
 	@Override
 	public void autonomousInit() {
@@ -154,9 +155,6 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.start();
 		}
 		autoDrive.start();
-		
-//		turn90.start();
-		
 	}
 
 	/**
