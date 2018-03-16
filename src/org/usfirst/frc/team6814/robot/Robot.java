@@ -13,7 +13,6 @@ import org.usfirst.frc.team6814.robot.commands.Elevator;
 import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
 import org.usfirst.frc.team6814.robot.commands.LightyLight;
-import org.usfirst.frc.team6814.robot.commands.Turn90;
 //import org.usfirst.frc.team6814.robot.commands.Witch;
 import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
 
@@ -40,7 +39,6 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public Drive1 drive;
 	public AutoDrive autoDrive;
-	public Turn90 turn90;
 	public GrabbyGrabbyCtrl grabbygrabby;
 	public LightyLight lightylight;
 	public Elevator elevator;
@@ -74,8 +72,6 @@ public class Robot extends TimedRobot {
 		lightylight = new LightyLight();
 		elevator = new Elevator(m_oi.rightController);
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
-		//turn90 = new Turn90(RobotMap.ahrs);
-		
 		
 
 //		witch=new Witch(m_oi.thirdController);
