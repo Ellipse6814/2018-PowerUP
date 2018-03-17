@@ -8,15 +8,19 @@
 package org.usfirst.frc.team6814.robot;
 import org.usfirst.frc.team6814.robot.commands.AutoDrive;
 import org.usfirst.frc.team6814.robot.commands.Drive;
+import org.usfirst.frc.team6814.robot.commands.Drive1;
+import org.usfirst.frc.team6814.robot.commands.Elevator;
 import org.usfirst.frc.team6814.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6814.robot.commands.GrabbyGrabbyCtrl;
-import org.usfirst.frc.team6814.robot.commands.LightyLighty;
+import org.usfirst.frc.team6814.robot.commands.LightyLight;
 import org.usfirst.frc.team6814.robot.commands.Turn90;
+import org.usfirst.frc.team6814.robot.commands.Witch;
 import org.usfirst.frc.team6814.robot.subsystems.ExampleSubsystem;
 
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -34,11 +38,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();
 	public static OI m_oi;
-	public Drive drive;
+	public Drive1 drive;
 	public AutoDrive autoDrive;
 	public Turn90 turn90;
 	public GrabbyGrabbyCtrl grabbygrabby;
-	public LightyLighty lightylighty;
+	public LightyLight lightylight;
+	public Elevator elevator;
+//	public Witch witch;
 	
 
 	Command m_autonomousCommand;
@@ -50,13 +56,29 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		//init encoder
+		 RobotMap.encoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+		 RobotMap.encoder.setMaxPeriod(1);
+		 RobotMap.encoder.setMinRate(10);
+		 RobotMap.encoder.setDistancePerPulse(5);
+		 RobotMap.encoder.setReverseDirection(true);
+		 RobotMap.encoder.setSamplesToAverage(7);
+		 RobotMap.encoder.reset();
+		
 		RobotMap.timer.start();
 		RobotMap.ahrs = new AHRS(SPI.Port.kMXP); 
 		m_oi = new OI();
 		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.rightController);
 		autoDrive = new AutoDrive();
-		drive = new Drive(m_oi.leftController, m_oi.rightController, RobotMap.ahrs);
+		drive = new Drive1(m_oi.leftController, m_oi.rightController, RobotMap.ahrs);
+		lightylight = new LightyLight();
+		elevator = new Elevator(m_oi.rightController);
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
+		turn90 = new Turn90(RobotMap.ahrs);
+		
+		
+
+//		witch=new Witch(m_oi.thirdController);
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
@@ -132,6 +154,7 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.start();
 		}
 		autoDrive.start();
+		
 //		turn90.start();
 		
 	}
@@ -156,7 +179,9 @@ public class Robot extends TimedRobot {
 		//Scheduler.getInstance().add(drive);
 		drive.start();
 		grabbygrabby.start();
-//		lightylighty.start();
+		lightylight.start();
+		elevator.start();
+//		witch.start();
 	}
 
 	/**

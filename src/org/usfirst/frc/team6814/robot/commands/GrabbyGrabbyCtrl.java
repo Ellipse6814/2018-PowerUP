@@ -18,18 +18,18 @@ public class GrabbyGrabbyCtrl extends Command {
 	@Override
 	protected void execute() {
 		if (this.rightStick.getRawButton(1)) {
-			RobotMap.solenoid.set(DoubleSolenoid.Value.kForward);
+			RobotMap.solenoid.set(DoubleSolenoid.Value.kReverse);
 			if (RobotMap.whoHasPwrOverLight==1) { //if I have power
-				setLight(-0.47);
+				setLight(.57);
 			}
 			if (!lastAction) { //I have power!
 				lastAction = true;
 				setPower();
 			}
 		} else {
-			RobotMap.solenoid.set(DoubleSolenoid.Value.kReverse);
+			RobotMap.solenoid.set(DoubleSolenoid.Value.kForward);
 			if (RobotMap.whoHasPwrOverLight==1) {
-				setLight(-0.57);
+				setLight(.59);
 			}
 			if (lastAction) {
 				lastAction = false;

@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	public Joystick leftController = new Joystick(0);
 	public Joystick rightController = new Joystick(1);
+	public Joystick thirdController = new Joystick(2);
 	public Button GrabbyGrabbyButton = new JoystickButton(rightController, 1);
 	
 	public OI() {

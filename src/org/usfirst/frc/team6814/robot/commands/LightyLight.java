@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
 
-public class LightyLighty extends Command{
+public class LightyLight extends Command{
 	
-	public LightyLighty() {
+	public LightyLight() {
 		//nothing to do.
 	}
 	

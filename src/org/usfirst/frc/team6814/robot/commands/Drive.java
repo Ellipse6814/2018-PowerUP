@@ -4,6 +4,7 @@ import org.usfirst.frc.team6814.robot.RobotMap;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -15,16 +16,14 @@ public class Drive extends Command {
 	private boolean straight = false;
 	private boolean forwards = true;
 	private int turn = -1;
+	// private double turnSpd = 0.6;
 	private int lastturn = -1;
 	private int wantedTurn = 0;
 	private int lastStatus = 0; // 1:forward straught; 2:backward straight; 3: turning whatever
 	private AHRS ahrs;
 	private int count = 0;
 	private double GYROturnSpd = 0.6;
-	// private boolean LEDWonderAround = true;
-	// private PWM r;
-	// private PWM g;
-	// private PWM b;
+	private double rev = 1.0;
 
 	public Drive(Joystick leftController, Joystick rightController, AHRS ahrs) {//
 		this.leftController = leftController;
@@ -35,12 +34,6 @@ public class Drive extends Command {
 		RobotMap.rightFrontMotor.setExpiration(0.1);
 		this.ahrs = ahrs;
 		resetGYRO();
-		// this.r = RobotMap.r;
-		// this.g = RobotMap.g;
-		// this.b = RobotMap.b;
-		// this.r.setRaw(255);
-		// this.g.setRaw(255);
-		// this.b.setRaw(255);
 	}
 
 	@Override
@@ -50,18 +43,25 @@ public class Drive extends Command {
 
 	@Override
 	protected void execute() {
+		// System.out.println(RobotMap.driveEnc.get());
+		// 1 rotation=6pi=18.84...
+		// 79 is one foot, I think.
+		
 		double rl = leftController.getRawAxis(1); // raw data
-		double rr = leftController.getRawAxis(5);
+		double rr = leftController.getRawAxis(3);
 		double l = (rl + rr) / 2;
 		double r = rl - rr;
-		if (count > 20) {
-			count = 0;
-
-		}
+		// double l = rl;
+		// double r = rr;
+//		if (count > 20) {
+//			count = 0;
+//
+//		}
 		// System.out.println(ahrs.getAngle()-fAngle);
-		count++;
+//		count++;
 		// System.out.println(this.leftController.getPOV());
-		turn90();
+		GetRevBut();
+//		turn90();
 		Forcestriaght(l, r);
 		if (!ForceStraight) {
 			checkStraight(l, r);
@@ -69,14 +69,22 @@ public class Drive extends Command {
 			if (l > -0.1 && l < 0.1 && Math.abs(r) > 0.5) {
 				rotate(r);
 			} else {
-				// arcadeDrive(l, r);
-				cheesyDrive(l, r);
+				arcadeDrive(l, r);
+				// cheesyDrive(l, r);
 			}
 			// System.out.println(ahrs.getAngle());
 		} else {
 			setLight(-0.03);// force straight light
 		}
 
+	}
+
+	private void GetRevBut() {
+		if (leftController.getRawButton(4)) {
+			rev = 1.0;
+		} else if (leftController.getRawButton(2)) {
+			rev = -1.0;
+		}
 	}
 
 	private void turn90() {
@@ -103,12 +111,12 @@ public class Drive extends Command {
 
 	private void Forcestriaght(double l, double r) {
 		// System.out.println(leftController.getRawButton(1));
-		if (leftController.getRawButton(1) && !(ForceStraight)) { // start going straight
+		if (leftController.getRawButton(6) && !(ForceStraight)) { // start going straight
 			resetGYRO();
 			straight = true;
 			ForceStraight = true;
 			// System.out.println("F straight");
-		} else if (!(leftController.getRawButton(1)) && ForceStraight) { // ended going straight
+		} else if (!(leftController.getRawButton(6)) && ForceStraight) { // ended going straight
 			straight = false;
 			ForceStraight = false;
 			// System.out.println("F turning");
@@ -117,7 +125,9 @@ public class Drive extends Command {
 			resetGYRO();
 			// System.out.println("F change direction -> reset");
 		}
-
+		if (leftController.getRawButton(5)) {
+			l *= 0.6;
+		}
 		ctrlMotors(l, l);
 	}
 
@@ -155,6 +165,10 @@ public class Drive extends Command {
 	}
 
 	private void arcadeDrive(double power, double turn) {
+		if (leftController.getRawButton(5)) {
+			power *= 0.6;
+			turn *= 0.3;
+		}
 		double leftPower = power + power * turn;
 		double rightPower = power - power * turn;
 		ctrlMotors(leftPower, rightPower);
@@ -168,23 +182,20 @@ public class Drive extends Command {
 		ctrlMotors(leftPower, rightPower);
 	}
 
-	/*
-	 * private void eDrive(double leftStick, double rightStick) { double leftPower =
-	 * 0; double rightPower = 0; if (Math.abs(rightStick - leftStick) < 0.35) { if
-	 * (!lastStatus) { lastStatus = true; // ahrs.reset(); }
-	 * 
-	 * double averagePower = (leftStick + rightStick) / 2; leftPower = averagePower;
-	 * rightPower = averagePower;
-	 * 
-	 * } else { lastStatus = false; leftPower = leftStick;// *.6; rightPower =
-	 * rightStick;// *0.6; } if (leftController.getRawButton(6)) { leftPower *= 0.6;
-	 * rightPower *= 0.6; } ctrlMotors(leftPower, rightPower);
-	 * 
-	 * }
-	 */
+	private double DistanceSince(double prevEncVal) {
+		double EncVal = RobotMap.encoder.get();
+		final double encFormula = 6*Math.PI/128;
+		double res = encFormula*EncVal;
+		
+		return res;
+		// 1rotation=128=6pi ft 6pi/128 = outp/inp
+		
+	}
+	
+	
 	private void ctrlMotors(double l, double r) {
-		RobotMap.driveFrontBot.tankDrive((l + GYROl(l, r)) * 1, (r + GYROr(l, r)) * 1);
-		RobotMap.driveBackBot.tankDrive((l + GYROl(l, r)) * 1, (r + GYROr(l, r)) * 1);
+		RobotMap.driveFrontBot.tankDrive((l + GYROl(l, r)) * rev, (r + GYROr(l, r)) * rev);
+		RobotMap.driveBackBot.tankDrive((l + GYROl(l, r)) * rev, (r + GYROr(l, r)) * rev);
 	}
 
 	private double GYROl(double l, double r) {

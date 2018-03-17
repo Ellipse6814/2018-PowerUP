@@ -10,9 +10,10 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Turn90 extends Command{
 	private boolean exit = false;
 	private double wantedAngle;
+	private double spd = .8;
 	private AHRS ahrs;
 
-	public Turn90(AHRS ahrs, boolean left90) {//
+	public Turn90(AHRS ahrs) {//
 		this.ahrs = ahrs;
 		resetGYRO();
 	}
@@ -20,12 +21,17 @@ public class Turn90 extends Command{
 	@Override
 	protected void execute() {
 		if (wantedAngle<-2) {
-			ctrlMotors(-.5);
+			ctrlMotors(-spd);
 		}else if (wantedAngle>2){
-			ctrlMotors(.5);
+			ctrlMotors(spd);
 		}else {
 			exit = true;
 		}
+		spd -=0.00;
+		if (spd <=0) {
+			spd=0.5;
+		}
+		System.out.println(spd);
 	}
 	
 	private void ctrlMotors(double turn) { //-:left; +:right
