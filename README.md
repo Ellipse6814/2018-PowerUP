@@ -2,4 +2,4 @@
 ***
 ## Notes:
 + All of the teleop currently works.
-+ Autonomous *might* work but is still untested.
++ For autonomous we can drive forward in a straight line!
