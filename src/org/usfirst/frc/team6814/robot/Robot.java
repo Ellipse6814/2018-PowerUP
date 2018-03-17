@@ -67,7 +67,7 @@ public class Robot extends TimedRobot {
 		//RobotMap.ahrs = new AHRS(SPI.Port.kMXP); 
 		m_oi = new OI();
 		grabbygrabby = new GrabbyGrabbyCtrl(m_oi.rightController);
-		autoDrive = new AutoDrive();
+		autoDrive = new AutoDrive(null);
 		//drive = new Drive1(m_oi.leftController, m_oi.rightController, RobotMap.ahrs);
 		lightylight = new LightyLight();
 		elevator = new Elevator(m_oi.rightController);

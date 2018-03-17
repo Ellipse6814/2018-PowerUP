@@ -2,7 +2,7 @@ package org.usfirst.frc.team6814.robot.commands;
 
 import org.usfirst.frc.team6814.robot.RobotMap;
 
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;

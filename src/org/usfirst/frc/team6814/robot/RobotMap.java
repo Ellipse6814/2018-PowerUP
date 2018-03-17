@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team6814.robot;
 
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -34,7 +34,7 @@ public class RobotMap {
 	public static DifferentialDrive driveBackBot = new DifferentialDrive(leftBackMotor,rightBackMotor);
 	public static Compressor compressor = new Compressor(0);
 	public static DoubleSolenoid solenoid = new DoubleSolenoid(0,1);
-	public static AHRS ahrs;
+	//public static AHRS ahrs;
 	public static double light=0.5;
 	public static int whoHasPwrOverLight; //0:drive, 1:grabbygrabby
 	public static Encoder encoder;

@@ -8,8 +8,10 @@ public class AutoDrive extends Command {
 	private boolean currentState = false;
 	private double currentSpeed = -.8;
 	private double StartEncPos = 0.0;
+	private Command nextCommand;
 
-	public AutoDrive(){
+	public AutoDrive(Command nextCommand){
+		this.nextCommand = nextCommand;
 		StartEncPos = RobotMap.encoder.get();
 		System.out.println("auto started");
 	}
@@ -19,7 +21,6 @@ public class AutoDrive extends Command {
 	protected void execute() {
 		RobotMap.driveFrontBot.tankDrive(currentSpeed, currentSpeed);
 		RobotMap.driveBackBot.tankDrive(currentSpeed, currentSpeed);
-//		System.out.println(DistanceSince(StartEncPos));
 		
 		if (DistanceSince(StartEncPos) > 12) {
 			currentSpeed = 0;
@@ -35,7 +36,11 @@ public class AutoDrive extends Command {
 	@Override
 	protected void end() {
 //		RobotMap.timer.reset();
-		System.out.println("auto end");
+		if(nextCommand != null) {
+			nextCommand.start();
+		} else {
+			System.out.println("auto end");
+		}
 	}
 
 	private double DistanceSince(double prevEncVal) {
